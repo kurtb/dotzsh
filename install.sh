@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-set -e
+# -u catches unset variable bugs; -o pipefail catches failures in piped commands (e.g. curl | sh), not just the last command
+set -euo pipefail
 
 # The root directory of this zsh config repo, resolved relative to this script
 ZSH_CONFIG_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
