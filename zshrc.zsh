@@ -117,4 +117,12 @@ if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-no
 		fi
 	}
 fi
+
+# fnm
+FNM_PATH="/home/kurtb/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
 export PATH="$HOME/.local/bin:$PATH:/snap/bin"
