@@ -27,8 +27,13 @@ fi
 # Initialize submodules (z)
 git -C "$ZSH_CONFIG_DIR" submodule update --init --recursive
 
-# Symlink .zshrc
-ln -sf "$ZSH_CONFIG_DIR/.zshrc" "$HOME/.zshrc"
-echo "Linked $HOME/.zshrc -> $ZSH_CONFIG_DIR/.zshrc"
+# Add source line to ~/.zshrc if not already present
+ZSHRC_LINE="source $ZSH_CONFIG_DIR/zshrc.zsh"
+if ! grep -qF "$ZSHRC_LINE" "$HOME/.zshrc" 2>/dev/null; then
+  echo "$ZSHRC_LINE" >> "$HOME/.zshrc"
+  echo "Added source line to $HOME/.zshrc"
+else
+  echo "$HOME/.zshrc already sources $ZSH_CONFIG_DIR/zshrc.zsh, skipping"
+fi
 
 echo "Done! Restart your shell or run: source ~/.zshrc"

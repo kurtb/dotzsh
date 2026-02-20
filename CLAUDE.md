@@ -8,19 +8,25 @@ This is a personal zsh dotfiles repository. It configures zsh via oh-my-zsh with
 
 ## Setup
 
-To install on a new machine (clones plugins, initializes submodules, and symlinks `.zshrc`):
+To install on a new machine (clones plugins, initializes submodules, and adds a source line to `~/.zshrc`):
 
 ```sh
 ./install.sh
 ```
 
+Re-running `install.sh` is safe — it skips any step already completed.
+
 ## Structure
 
-- `.zshrc` — main zsh config, sourced by oh-my-zsh
-- `install.sh` — bootstraps oh-my-zsh, clones third-party plugins, initializes submodules, and symlinks `.zshrc` to `~/.zshrc`
-- `z/` — git submodule of [rupa/z](https://github.com/rupa/z) for frecency-based directory jumping; sourced in `.zshrc` using `${(%):-%x}:A:h` to resolve the real path through the symlink
+- `zshrc.zsh` — main zsh config; sourced by `~/.zshrc` (which is machine-local and untracked)
+- `install.sh` — bootstraps oh-my-zsh, clones third-party plugins, initializes submodules, and appends a `source` line to `~/.zshrc` if not already present
+- `z/` — git submodule of [rupa/z](https://github.com/rupa/z) for frecency-based directory jumping; sourced in `zshrc.zsh` using `${(%):-%x}:A:h` to resolve the real path of the sourced file
 
-## Plugins (defined in `.zshrc`)
+## Machine-local configuration
+
+`~/.zshrc` is not tracked in this repo. It sources `zshrc.zsh` and can contain machine-specific config before or after that line. Tools that auto-append to `~/.zshrc` (e.g. `nvm`, `conda`) will write there, keeping the repo clean.
+
+## Plugins (defined in `zshrc.zsh`)
 
 `git docker npm node vscode docker-compose zsh-syntax-highlighting zsh-autosuggestions zsh-completions`
 
