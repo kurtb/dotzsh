@@ -20,7 +20,7 @@ Re-running `install.sh` is safe — it skips any step already completed.
 
 - `zshrc.zsh` — main zsh config; sourced by `~/.zshrc` (which is machine-local and untracked)
 - `install.sh` — bootstraps oh-my-zsh, clones third-party plugins, initializes submodules, and appends a `source` line to `~/.zshrc` if not already present
-- `z/` — git submodule of [rupa/z](https://github.com/rupa/z) for frecency-based directory jumping; sourced in `zshrc.zsh` using `${(%):-%x}:A:h` to resolve the real path of the sourced file
+- `z/` — [rupa/z](https://github.com/rupa/z) for frecency-based directory jumping; cloned here by `install.sh` (gitignored, not a submodule). Sourced in `zshrc.zsh` using `${(%):-%x}:A:h` to resolve the real path of the sourced file
 
 ## Machine-local configuration
 

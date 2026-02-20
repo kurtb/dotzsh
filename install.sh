@@ -11,21 +11,20 @@ fi
 
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
-# Clone third-party plugins if not present
-if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
-fi
+# Clone or update third-party plugins
+clone_or_update() {
+  local repo="$1" dir="$2"
+  if [ ! -d "$dir" ]; then
+    git clone "$repo" "$dir"
+  else
+    git -C "$dir" pull --ff-only
+  fi
+}
 
-if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
-  git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
-fi
-
-if [ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ]; then
-  git clone https://github.com/zsh-users/zsh-completions "$ZSH_CUSTOM/plugins/zsh-completions"
-fi
-
-# Initialize submodules (z)
-git -C "$ZSH_CONFIG_DIR" submodule update --init --recursive
+clone_or_update https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+clone_or_update https://github.com/zsh-users/zsh-autosuggestions      "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+clone_or_update https://github.com/zsh-users/zsh-completions           "$ZSH_CUSTOM/plugins/zsh-completions"
+clone_or_update https://github.com/rupa/z                              "$ZSH_CONFIG_DIR/z"
 
 # Add source line to ~/.zshrc if not already present
 ZSHRC_LINE="source $ZSH_CONFIG_DIR/zshrc.zsh"
