@@ -68,7 +68,7 @@ ZSH_THEME="random"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker npm node vscode docker-compose zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git docker npm node vscode docker-compose zsh-syntax-highlighting zsh-autosuggestions zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -98,6 +98,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
+# Source z for directory jumping
+[[ -f "${${(%):-%x}:A:h}/z/z.sh" ]] && source "${${(%):-%x}:A:h}/z/z.sh"
+
 # if the command-not-found package is installed, use it
 if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
 	function command_not_found_handler {
